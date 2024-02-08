@@ -1,0 +1,34 @@
+﻿@model List<BarberBookingSystem.Models.CalendarCell>
+
+<h2>Booking Calendar</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Is Booked</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cell in Model)
+        {
+            <tr>
+                <td>@cell.Date.ToShortDateString()</td>
+                <td>@cell.Time</td>
+                <td>@cell.IsBooked</td>
+                <td>
+                    @if (cell.IsBooked)
+                    {
+                        <a href="@Url.Action("BookingConfirmed", "Booking", new { id = cell.BookingId })">View Booking</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Book", "Booking", new { id = cell.BookingId, date = cell.Date.ToString("yyyy-MM-dd"), time = cell.Time })">Book Now</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
